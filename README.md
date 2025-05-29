@@ -4,12 +4,9 @@ Government tenders often involve large sums of public money, and inefficiencies 
 
 #  APPROACH & SOLUTION
 FundGuard is a Flask-based web application that allows users to upload CSV files containing government tender data. It analyzes the data using Pandas and flags potentially suspicious entries based on:
-
-Excessive final cost (Final Cost > 1.5 × Estimated Cost)
-
-Frequent vendor wins (same vendor wins more than 3 tenders)
-
-The app offers an interactive dashboard and risk report to support transparency and audit-readiness.
+-Excessive final cost (Final Cost > 1.5 × Estimated Cost)
+-Frequent vendor wins (same vendor wins more than 3 tenders)
+-The app offers an interactive dashboard and risk report to support transparency and audit-readiness.
 
 #  FEATURES 
   - Upload and analyze CSV files containing tender data
