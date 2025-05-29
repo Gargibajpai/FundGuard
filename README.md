@@ -23,7 +23,7 @@ FundGuard is a Flask-based web application that allows users to upload CSV files
 - Responsive data table with all tender details
   
  # Tech Stack
-      Frontend: HTML5, Bootstrap 5, Chart.js
+   Frontend: HTML5, Bootstrap 5, Chart.js
    Backend: Python Flask
    Data Processing: Pandas
    Deployment Ready: Easily deployable on platforms like Heroku or Render
