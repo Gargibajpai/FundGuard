@@ -24,8 +24,8 @@ The app offers an interactive dashboard and risk report to support transparency 
 - Responsive data table with all tender details
   
  # Tech Stack
-  Frontend: HTML5, Bootstrap 5, Chart.js
-  Backend: Python Flask
-  Data Processing: Pandas
-  Deployment Ready: Easily deployable on platforms like Heroku or Render
+  -Frontend: HTML5, Bootstrap 5, Chart.js
+  -Backend: Python Flask
+  -Data Processing: Pandas
+  -Deployment Ready: Easily deployable on platforms like Heroku or Render
 
