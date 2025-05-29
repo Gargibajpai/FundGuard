@@ -12,26 +12,17 @@ Frequent vendor wins (same vendor wins more than 3 tenders)
 The app offers an interactive dashboard and risk report to support transparency and audit-readiness.
 
 #  FEATURES 
-  -Upload tender data in CSV format
-  -Display data in a responsive HTML table
-
-Automatically flag tenders as:
-
-   - ✅ OK
-
-   -⚠ Over Budget
-
-   -🔁 Vendor Repeat
-
- # Dashboard showing:
-
-  -Total tenders
-
-  -Flagged tenders count
-
-  -Pie chart (Chart.js) of tender risk classification
-    (Bonus)
-
+  - Upload and analyze CSV files containing tender data
+- Automatic risk flagging for:
+  - Over-budget tenders (Final Cost > 1.5 × Estimated Cost)
+  - Repeated vendor allocations (same vendor winning > 3 tenders)
+- Interactive dashboard with:
+  - Total tenders count
+  - Flagged tenders count
+  - Risk distribution pie chart
+- Downloadable report of flagged tenders
+- Responsive data table with all tender details
+  
  # Tech Stack
   Frontend: HTML5, Bootstrap 5, Chart.js
   Backend: Python Flask
