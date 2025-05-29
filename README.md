@@ -1,4 +1,6 @@
 # FundGuard – Government Tender Risk Analyzer
+A data-driven platform that detects corruption patterns in government tender allocations using CSV data and visual analytics.
+
 # PROBLEM STATEMENT
 Government tenders often involve large sums of public money, and inefficiencies or fraudulent practices can go unnoticed. There’s a need for an accessible tool that flags suspicious tenders based on predefined criteria, helping authorities and watchdogs identify potential red flags in public procurement.
 
@@ -21,8 +23,8 @@ FundGuard is a Flask-based web application that allows users to upload CSV files
 - Responsive data table with all tender details
   
  # Tech Stack
-  -Frontend: HTML5, Bootstrap 5, Chart.js
-  -Backend: Python Flask
-  -Data Processing: Pandas
-  -Deployment Ready: Easily deployable on platforms like Heroku or Render
+   -Frontend: HTML5, Bootstrap 5, Chart.js
+   -Backend: Python Flask
+   -Data Processing: Pandas
+   -Deployment Ready: Easily deployable on platforms like Heroku or Render
 
