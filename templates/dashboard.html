@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FundGuard Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark px-3" style="background-color: #002147;">
+  <a class="navbar-brand d-flex align-items-center" href="#">
+    <img src="{{ url_for('static', filename='logo.png') }}" class="navbar-logo me-2" alt="FundGuard Logo">
+    <span class="fs-4 fw-bold">FundGuard</span>
+  </a>
+  <div class="ms-auto d-flex align-items-center toggle-switch">
+    <a class="btn btn-outline-light me-2" href="/">🏠 Home</a>
+    <label class="me-2 text-white" for="darkModeToggle">🌙 Dark Mode</label>
+    <input type="checkbox" id="darkModeToggle" onclick="toggleDarkMode()">
+    <a class="btn btn-outline-light ms-3" href="/logout">Logout</a>
+  </div>
+</nav>
+
+
+<div class="container mt-5">
+  <h2 class="mb-4">📊 Dashboard</h2>
+
+  {% if summary %}
+  <div class="alert alert-info">
+    <strong>{{ summary.total }}</strong> tenders analyzed —
+    <strong>{{ summary.flagged }}</strong> flagged as suspicious.
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-md-4">
+      <div class="card p-3">
+        <h5>Total Tenders: {{ summary.total }}</h5>
+        <h6>Flagged Tenders: {{ summary.flagged }}</h6>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <canvas id="riskChart"></canvas>
+    </div>
+    <div class="col-md-4 text-end">
+      <a href="/export" class="btn btn-success">⬇ Download Flagged CSV</a>
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="card p-4 mb-5">
+    <h5>📁 Upload Tender CSV</h5>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+      <input class="form-control" type="file" name="file" required>
+      <button class="btn btn-primary mt-2">Upload</button>
+    </form>
+  </div>
+
+  {% if data %}
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th>Tender ID</th>
+          <th>Department</th>
+          <th>Estimated Cost</th>
+          <th>Final Cost</th>
+          <th>Vendor</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in data %}
+        <tr>
+          <td>{{ row['Tender ID'] }}</td>
+          <td>{{ row['Department'] }}</td>
+          <td>{{ row['Estimated Cost'] }}</td>
+          <td>{{ row['Final Cost'] }}</td>
+          <td>{{ row['Vendor'] }}</td>
+          <td>
+            {% if row['Status'] == '✅ OK' %}
+              <span class="badge badge-ok">OK</span>
+            {% elif row['Status'] == '⚠ Over Budget' %}
+              <span class="badge badge-over">Over Budget</span>
+            {% elif row['Status'] == '🔁 Vendor Repeat' %}
+              <span class="badge badge-repeat">Vendor Repeat</span>
+            {% else %}
+              {{ row['Status'] }}
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% endif %}
+</div>
+
+<script>
+  const toggle = document.getElementById("darkModeToggle");
+
+  function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+    localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+  }
+
+  window.onload = function() {
+    if (localStorage.getItem('darkMode') === 'true') {
+      document.body.classList.add('dark-mode');
+      toggle.checked = true;
+    }
+
+    {% if summary %}
+    const ctx = document.getElementById('riskChart');
+    new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: ['OK', 'Over Budget', 'Vendor Repeat'],
+        datasets: [{
+          label: 'Risk Breakdown',
+          data: [{{ summary.ok }}, {{ summary.over }}, {{ summary.repeat }}],
+          backgroundColor: ['#198754', '#ffc107', '#dc3545']
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'bottom'
+          }
+        }
+      }
+    });
+    {% endif %}
+  };
+</script>
+
+</body>
+</html>

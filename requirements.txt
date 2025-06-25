@@ -1,0 +1,7 @@
+flask
+pandas
+werkzeug
+openpyxl
+chart.js
+gunicorn
+python-dotenv
